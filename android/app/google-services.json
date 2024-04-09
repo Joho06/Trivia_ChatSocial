@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "275579157702",
+    "project_id": "trivaichatsocial",
+    "storage_bucket": "trivaichatsocial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275579157702:android:d56220e24d2c4fce7aebc7",
+        "android_client_info": {
+          "package_name": "com.example.trivai_chat_social"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHrUCIdcXxVTvDVK_6k-tcr8FSj902eD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
