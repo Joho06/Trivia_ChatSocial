@@ -1,7 +1,5 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:trivai_chat_social/Page/utils/custom_theme_button.dart';
+import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
 
 import 'coloors.dart';
 
@@ -28,7 +26,7 @@ showLoadingDialog({
                     message,
                     style: TextStyle(
                       fontSize: 15,
-                      color: context.theme.greyColor,
+                      color: context.theme?.greyColor,
                       height: 1.5,
                     ),
                   ),

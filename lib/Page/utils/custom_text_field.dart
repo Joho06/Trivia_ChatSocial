@@ -1,7 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:trivai_chat_social/Page/utils/custom_theme_button.dart';
+import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
+
 import 'coloors.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
         prefixText: prefixText,
         suffix: suffixIcon,
         hintText: hintText,
-        hintStyle: TextStyle(color: context.theme.greyColor),
+        hintStyle: TextStyle(color: context.theme?.greyColor),
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: Coloors.greenDark,

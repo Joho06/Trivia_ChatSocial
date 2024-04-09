@@ -1,12 +1,10 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:trivai_chat_social/Page/verificacion.dart';
 import '../Page/HomePage.dart';
 import '../Page/LoginPage.dart';
-import '../Page/user_perfile.dart';
-import '../Page/verificacion.darrt.dart';
+import '../Page/User_perfile.dart';
 import '../Page/welcomePage.dart';
-import '../empty/userModel.dart';
+
 
 class Routes {
   static const String welcome = 'welcome';

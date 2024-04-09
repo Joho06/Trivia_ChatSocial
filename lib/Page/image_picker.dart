@@ -1,11 +1,10 @@
 
 import 'dart:typed_data';
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:trivai_chat_social/Page/utils/custom_theme_button.dart';
+import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
+
 
 import 'utils/custom_icon_button.dart';
 
@@ -62,7 +61,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                     margin: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: context.theme.greyColor!.withOpacity(.4),
+                        color: context.theme!.greyColor!.withOpacity(.4),
                         width: 1,
                       ),
                       image: DecorationImage(
@@ -105,7 +104,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
         title: Text(
           'WhatsApp',
           style: TextStyle(
-            color: context.theme.authAppbarTextColor,
+            color: context.theme?.authAppbarTextColor,
           ),
         ),
         actions: [

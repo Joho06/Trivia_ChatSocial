@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trivai_chat_social/Page/utils/auth/controller.dart';
 import 'package:trivai_chat_social/Page/utils/coloors.dart';
 import 'package:trivai_chat_social/Page/utils/custom_elevated_button.dart';
 import 'package:trivai_chat_social/Page/utils/custom_icon_button.dart';
 import 'package:trivai_chat_social/Page/utils/custom_text_field.dart';
+import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
 import 'package:trivai_chat_social/Page/utils/show_alert.dart';
 
+import 'package:country_picker/country_picker.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   ConsumerState<LoginPage> createState() => _LoginPageState();
@@ -43,11 +46,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       );
     }
 
-    // Replace 'ref' with the correct way to access 'authControllerProvider'
-    // ref.read(authControllerProvider).sendSmsCode(
-    //   context: context,
-    //   phoneNumber: "+$countryCode$phoneNumber",
-    // );
+    ref.read(authControllerProvider).sendSmsCode(
+      context: context,
+      phoneNumber: "+$countryCode$phoneNumber",
+    );
   }
 
   void showCountryPickerBottomSheet() {
@@ -60,9 +62,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         backgroundColor: Theme.of(context).backgroundColor,
         flagSize: 22,
         borderRadius: BorderRadius.circular(20),
-        textStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        textStyle: TextStyle(color: context.theme?.greyColor),
         inputDecoration: InputDecoration(
-          labelStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          labelStyle: TextStyle(color: context.theme?.greyColor),
           prefixIcon: const Icon(
             Icons.language,
             color: Coloors.greenDark,
@@ -70,7 +72,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           hintText: 'Search country by code or name',
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: context.theme?.greyColor?.withOpacity(0.2) ?? Colors.transparent,
             ),
           ),
           focusedBorder: const UnderlineInputBorder(
@@ -86,6 +88,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       },
     );
   }
+
   @override
   void initState() {
     countryNameController = TextEditingController(text: 'Ethiopia');
@@ -111,7 +114,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         title: Text(
           'Enter your phone number',
           style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+            color: context.theme?.authAppbarTextColor,
           ),
         ),
         centerTitle: true,
@@ -131,14 +134,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               text: TextSpan(
                 text: 'WhatsApp will need to verify your number. ',
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
+                  color: context.theme?.greyColor,
                   height: 1.5,
                 ),
                 children: [
                   TextSpan(
                     text: "What's my number?",
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: context.theme?.blueColor,
                     ),
                   ),
                 ],
@@ -189,7 +192,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           Text(
             'Carrier charges may apply',
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: context.theme?.greyColor,
             ),
           ),
         ],
@@ -202,8 +205,4 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       ),
     );
   }
-
-  CountryListThemeData({required int bottomSheetHeight, required Color backgroundColor, required int flagSize, required BorderRadius borderRadius, required TextStyle textStyle, required InputDecoration inputDecoration}) {}
-
-  void showCountryPicker({required BuildContext context, required bool showPhoneCode, required List<String> favorite, required countryListTheme, required Null Function(dynamic country) onSelect}) {}
 }

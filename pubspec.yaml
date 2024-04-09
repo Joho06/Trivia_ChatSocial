@@ -42,7 +42,7 @@ dependencies:
   google_fonts: ^6.2.1
   custom_clippers: ^2.0.0
   flutter_native_splash: ^2.4.0
-  country_pickers: ^2.0.0
+  country_picker: ^2.0.17
   image_picker: ^1.0.7
   firebase_core: ^2.29.0
   firebase_auth: ^4.19.1

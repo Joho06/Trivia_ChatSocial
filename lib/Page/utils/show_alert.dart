@@ -1,7 +1,6 @@
 
-
 import 'package:flutter/material.dart';
-import 'package:trivai_chat_social/Page/utils/custom_theme_button.dart';
+import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
 
 showAlertDialog({
   required BuildContext context,
@@ -15,7 +14,7 @@ showAlertDialog({
         content: Text(
           message,
           style: TextStyle(
-            color: context.theme.greyColor,
+            color: context.theme?.greyColor,
             fontSize: 15,
           ),
         ),
@@ -26,7 +25,7 @@ showAlertDialog({
             child: Text(
               btnText ?? "OK",
               style: TextStyle(
-                color: context.theme.circleImageColor,
+                color: context.theme?.circleImageColor,
               ),
             ),
           ),

@@ -1,12 +1,10 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'coloors.dart';
 
 extension ExtendedTheme on BuildContext {
-  CustomThemeExtension get theme {
-    return Theme.of(this).extension<CustomThemeExtension>()!;
+  CustomThemeExtension? get theme {
+    return Theme.of(this).extension<CustomThemeExtension>();
   }
 }
 

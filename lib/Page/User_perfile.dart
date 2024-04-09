@@ -8,9 +8,7 @@ import 'package:trivai_chat_social/Page/utils/coloors.dart';
 import 'package:trivai_chat_social/Page/utils/custom_elevated_button.dart';
 import 'package:trivai_chat_social/Page/utils/custom_text_field.dart';
 import 'package:trivai_chat_social/Page/utils/show_alert.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
+
 
 
 

@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:trivai_chat_social/Page/utils/auth/controller.dart';
 import 'package:trivai_chat_social/Page/utils/custom_icon_button.dart';
 import 'package:trivai_chat_social/Page/utils/custom_text_field.dart';
-import 'package:trivai_chat_social/Page/utils/custom_theme_button.dart';
+import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
 
 class VerificationPage extends StatefulWidget {
   const VerificationPage({
@@ -45,7 +44,7 @@ class _VerificationPageState extends State<VerificationPage> {
         title: Text(
           'Verify your number',
           style: TextStyle(
-            color: context.theme.authAppbarTextColor,
+            color: context.theme?.authAppbarTextColor,
           ),
         ),
         actions: [
@@ -64,7 +63,7 @@ class _VerificationPageState extends State<VerificationPage> {
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: TextStyle(color: context.theme.greyColor),
+                  style: TextStyle(color: context.theme?.greyColor),
                   children: [
                     const TextSpan(
                       text:
@@ -73,7 +72,7 @@ class _VerificationPageState extends State<VerificationPage> {
                     TextSpan(
                       text: "Wrong number?",
                       style: TextStyle(
-                        color: context.theme.blueColor,
+                        color: context.theme?.blueColor,
                       ),
                     ),
                   ],
@@ -98,34 +97,34 @@ class _VerificationPageState extends State<VerificationPage> {
             const SizedBox(height: 20),
             Text(
               'Enter 6-digit code',
-              style: TextStyle(color: context.theme.greyColor),
+              style: TextStyle(color: context.theme?.greyColor),
             ),
             const SizedBox(height: 30),
             Row(
               children: [
-                Icon(Icons.message, color: context.theme.greyColor),
+                Icon(Icons.message, color: context.theme?.greyColor),
                 const SizedBox(width: 20),
                 Text(
                   'Resend SMS',
                   style: TextStyle(
-                    color: context.theme.greyColor,
+                    color: context.theme?.greyColor,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
             Divider(
-              color: context.theme.greyColor!.withOpacity(.2),
+              color: context.theme?.greyColor!.withOpacity(.2),
             ),
             const SizedBox(height: 10),
             Row(
               children: [
-                Icon(Icons.phone, color: context.theme.greyColor),
+                Icon(Icons.phone, color: context.theme?.greyColor),
                 const SizedBox(width: 20),
                 Text(
                   'Call Me',
                   style: TextStyle(
-                    color: context.theme.greyColor,
+                    color: context.theme?.greyColor,
                   ),
                 ),
               ],

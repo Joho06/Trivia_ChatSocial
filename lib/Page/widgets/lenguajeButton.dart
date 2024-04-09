@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trivai_chat_social/Page/utils/custom_theme_button.dart';
-
+import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
 import '../utils/coloors.dart';
 import '../utils/custom_icon_button.dart';
 
@@ -20,7 +19,7 @@ class LanguageButton extends StatelessWidget {
                 height: 4,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: context.theme.greyColor!.withOpacity(.4),
+                  color: context.theme?.greyColor!.withOpacity(.4),
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
@@ -45,7 +44,7 @@ class LanguageButton extends StatelessWidget {
               const SizedBox(height: 10),
               Divider(
                 thickness: .5,
-                color: context.theme.greyColor!.withOpacity(.3),
+                color: context.theme?.greyColor!.withOpacity(.3),
               ),
               RadioListTile(
                 value: true,
@@ -56,7 +55,7 @@ class LanguageButton extends StatelessWidget {
                 subtitle: Text(
                   "(Phone's language)",
                   style: TextStyle(
-                    color: context.theme.greyColor,
+                    color: context.theme?.greyColor,
                   ),
                 ),
               ),
@@ -69,7 +68,7 @@ class LanguageButton extends StatelessWidget {
                 subtitle: Text(
                   "Amharic",
                   style: TextStyle(
-                    color: context.theme.greyColor,
+                    color: context.theme?.greyColor,
                   ),
                 ),
               ),
@@ -82,13 +81,13 @@ class LanguageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: context.theme.langBgColor,
+      color: context.theme?.langBgColor,
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
         onTap: () => showBottomSheet(context),
         borderRadius: BorderRadius.circular(20),
         splashFactory: NoSplash.splashFactory,
-        highlightColor: context.theme.langHightlightColor,
+        highlightColor: context.theme?.langHightlightColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,

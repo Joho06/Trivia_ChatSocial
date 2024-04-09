@@ -1,10 +1,8 @@
-//import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trivai_chat_social/Page/widgets/lenguajeButton.dart';
 
-import 'LoginPage.dart'; // Importa la página Home si es necesario
+import 'LoginPage.dart';
 
 class welcomePage extends StatefulWidget {
   const welcomePage({Key? key}) : super(key: key);
@@ -24,7 +22,7 @@ class _welcomePageState extends State<welcomePage> {
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 50),
                 child: Image.asset(
-                  'assets/images/welcome.png',
+                  'assets/images/login.png',
                   color: Color(0xFF000A884),
                 )),
           ),
@@ -99,8 +97,8 @@ class _welcomePageState extends State<welcomePage> {
                       ),
                   ),
                 ),
-                SizedBox(height: 50),
-                LanguageButton(),
+                SizedBox(height: 20),
+                //LanguageButton(),
 
               ],
             ),
