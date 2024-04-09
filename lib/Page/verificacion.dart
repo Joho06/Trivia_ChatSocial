@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trivai_chat_social/Page/utils/auth/controller.dart';
 import 'package:trivai_chat_social/Page/utils/custom_icon_button.dart';
 import 'package:trivai_chat_social/Page/utils/custom_text_field.dart';
@@ -88,10 +89,11 @@ class _VerificationPageState extends State<VerificationPage> {
                 autoFocus: true,
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  if (value.length == 6) {
-                    return verifySmsCode(context, ref!, value);
+                  if (value.length == 6 && ref != null) {
+                    verifySmsCode(context, ref!, value);
                   }
                 },
+
               ),
             ),
             const SizedBox(height: 20),
@@ -134,8 +136,4 @@ class _VerificationPageState extends State<VerificationPage> {
       ),
     );
   }
-}
-
-class WidgetRef {
-  read(authControllerProvider) {}
 }
