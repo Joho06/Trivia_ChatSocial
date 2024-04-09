@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
+import 'package:flutter/material.dart'; // Importa NoSplash
+
 import '../utils/coloors.dart';
 import '../utils/custom_icon_button.dart';
 
 class LanguageButton extends StatelessWidget {
   const LanguageButton({Key? key}) : super(key: key);
 
-  showBottomSheet(context) {
-    return showModalBottomSheet(
+  void showLanguageBottomSheet(BuildContext context) {
+    showModalBottomSheet(
       context: context,
+      backgroundColor: Coloors.backgroundDark,
       builder: (context) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -19,7 +22,7 @@ class LanguageButton extends StatelessWidget {
                 height: 4,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: context.theme?.greyColor!.withOpacity(.4),
+                  color: Coloors.greenDark,
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
@@ -30,13 +33,15 @@ class LanguageButton extends StatelessWidget {
                   CustomIconButton(
                     onPressed: () => Navigator.pop(context),
                     icon: Icons.close,
+                    iconColor: Coloors.greenDark,
                   ),
                   const SizedBox(width: 10),
                   const Text(
-                    'App Language',
+                    'Selecciona el lenguaje',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
+                      color: Coloors.greenDark,
                     ),
                   ),
                 ],
@@ -44,33 +49,33 @@ class LanguageButton extends StatelessWidget {
               const SizedBox(height: 10),
               Divider(
                 thickness: .5,
-                color: context.theme?.greyColor!.withOpacity(.3),
+                color: Coloors.greyDark.withOpacity(0.3),
               ),
-              RadioListTile(
-                value: true,
-                groupValue: true,
-                onChanged: (value) {},
-                activeColor: Coloors.greenDark,
-                title: const Text('English'),
-                subtitle: Text(
-                  "(Phone's language)",
+              ListTile(
+                onTap: () {
+                  _changeLanguage(context, 'en');
+                  Navigator.pop(context);
+                },
+                title: Text(
+                  'English',
                   style: TextStyle(
-                    color: context.theme?.greyColor,
+                    color: Coloors.greenDark,
                   ),
                 ),
+                selected: _isLanguageSelected(context, 'en'),
               ),
-              RadioListTile(
-                value: true,
-                groupValue: false,
-                onChanged: (value) {},
-                activeColor: Coloors.greenDark,
-                title: const Text('አማርኛ'),
-                subtitle: Text(
-                  "Amharic",
+              ListTile(
+                onTap: () {
+                  _changeLanguage(context, 'es');
+                  Navigator.pop(context);
+                },
+                title: Text(
+                  'Español',
                   style: TextStyle(
-                    color: context.theme?.greyColor,
+                    color: Coloors.greenDark,
                   ),
                 ),
+                selected: _isLanguageSelected(context, 'es'),
               ),
             ],
           ),
@@ -78,16 +83,26 @@ class LanguageButton extends StatelessWidget {
       },
     );
   }
+
+  void _changeLanguage(BuildContext context, String languageCode) {
+    final locale = Locale(languageCode);
+    LocaleProvider.locale = locale; // Cambiar el idioma aquí
+  }
+
+  bool _isLanguageSelected(BuildContext context, String languageCode) {
+    return LocaleProvider.locale?.languageCode == languageCode;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: context.theme?.langBgColor,
+      color: Colors.white,
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
-        onTap: () => showBottomSheet(context),
+        onTap: () => showLanguageBottomSheet(context),
         borderRadius: BorderRadius.circular(20),
         splashFactory: NoSplash.splashFactory,
-        highlightColor: context.theme?.langHightlightColor,
+        highlightColor: Coloors.greenDark.withOpacity(0.2), // Ajustar el color de resaltado
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -102,7 +117,7 @@ class LanguageButton extends StatelessWidget {
               ),
               SizedBox(width: 10),
               Text(
-                'English',
+                'Español',
                 style: TextStyle(
                   color: Coloors.greenDark,
                 ),
@@ -117,5 +132,16 @@ class LanguageButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class LocaleProvider {
+  static Locale? _locale;
+
+  static Locale? get locale => _locale;
+
+  static set locale(Locale? value) {
+    _locale = value;
+    // Aquí puedes realizar cualquier acción adicional después de cambiar el idioma, como recargar la interfaz de usuario
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:trivai_chat_social/Page/utils/custom_theme_button.dart';
+import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
 
 class ShortHBar extends StatelessWidget {
   const ShortHBar({
@@ -20,7 +21,7 @@ class ShortHBar extends StatelessWidget {
       width: width ?? 25,
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        color: color ?? context.theme.greyColor!.withOpacity(.2),
+        color: color ?? context.theme?.greyColor!.withOpacity(.2),
         borderRadius: BorderRadius.circular(5),
       ),
     );

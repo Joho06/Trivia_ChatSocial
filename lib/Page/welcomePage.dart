@@ -98,7 +98,7 @@ class _welcomePageState extends State<welcomePage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                //LanguageButton(),
+                LanguageButton(),
 
               ],
             ),
