@@ -7,13 +7,11 @@ import 'package:trivai_chat_social/Page/AjustesPage.dart';
 import 'package:trivai_chat_social/Page/HomePage.dart';
 import 'package:trivai_chat_social/Page/LoginPage.dart';
 import 'package:trivai_chat_social/Page/welcomePage.dart';
+import 'package:trivai_chat_social/Rutas/routes.dart';
 import 'Screens/cameraScreen.dart';
 import 'firebase_options.dart';
 
-
 Future<void> main() async {
-
-
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
   await Firebase.initializeApp(
@@ -25,6 +23,7 @@ Future<void> main() async {
     ),
   );
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -44,14 +43,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         darkTheme: darkTheme,
-        initialRoute: "/",
-        routes: {
-          "/": (context) => welcomePage(),
-          "Ajustes": (context) => AjustesPage(),
-          "Home": (context)=> HomePage(),
-          "Login": (context)=> LoginPage(),
-          //"Registrar": (context)=> RegisterPage(),
-        },
+        initialRoute: Routes.welcome, // Usa la constante definida en tu archivo de rutas
+        onGenerateRoute: Routes.onGenerateRoute, // Usa la función definida en tu archivo de rutas
       ),
     );
   }

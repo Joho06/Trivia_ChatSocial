@@ -12,9 +12,6 @@ class Routes {
   static const String verification = 'verification';
   static const String userInfo = 'user-info';
   static const String home = 'home';
-  static const String contact = 'contact';
-  static const String chat = 'chat';
-  static const String profile = 'profile';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -24,30 +21,31 @@ class Routes {
         );
       case login:
         return MaterialPageRoute(
-          builder: (context) =>  LoginPage(),
+          builder: (context) => LoginPage(),
         );
       case verification:
         final Map args = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => VerificationPage(
-            smsCodeId: args['smsCodeId'],
-            phoneNumber: args['phoneNumber'],
-          ),
+          builder: (context) =>
+              VerificationPage(
+                smsCodeId: args['smsCodeId'],
+                phoneNumber: args['phoneNumber'],
+              ),
         );
       case userInfo:
         final String? profileImageUrl = settings.arguments as String?;
         return MaterialPageRoute(
-          builder: (context) => UserInfoPage(
-            profileImageUrl: profileImageUrl,
-          ),
+          builder: (context) =>
+              UserInfoPage(
+                profileImageUrl: profileImageUrl,
+              ),
         );
       case home:
         return MaterialPageRoute(
           builder: (context) => const HomePage(),
         );
-
-
-      case profile:
+      // Agrega aquí la página de perfil que deseas mostrar
+      // Ejemplo:
 
       default:
         return MaterialPageRoute(
