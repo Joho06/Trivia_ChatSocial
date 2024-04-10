@@ -91,46 +91,6 @@ class _UserInfoPageState extends State<UserInfoPage> {
                       color: Colors.black, // Color del texto negro
                     ),
                   ),
-<<<<<<< HEAD
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: Icon(Icons.close),
-                ),
-                const SizedBox(width: 15),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Row(
-              children: [
-                const SizedBox(width: 20),
-                imagePickerIcon(
-                  onTap: pickImageFromCamera,
-                  icon: Icons.camera_alt_rounded,
-                  text: 'Camara',
-
-                ),
-                const SizedBox(width: 15),
-                imagePickerIcon(
-                  onTap: () async {
-
-                    Navigator.pop(context);
-                    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                    if (image == null) return;
-                    setState(() {
-                      imageGallery = File(image.path).readAsBytesSync();
-                      imageCamera = null;
-                    });
-                  },
-                  icon: Icons.photo_camera_back_rounded,
-                  text: 'Galeria',
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-          ],
-=======
                   const Spacer(),
                   IconButton(
                     onPressed: () => Navigator.pop(context),
@@ -167,7 +127,6 @@ class _UserInfoPageState extends State<UserInfoPage> {
               const SizedBox(height: 15),
             ],
           ),
->>>>>>> c52625f9c28065383529b80449625448a36e871f
         );
       },
     );
