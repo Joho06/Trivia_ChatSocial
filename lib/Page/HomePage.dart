@@ -37,15 +37,16 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
           title: Text('TRIVAI APP',
             style: GoogleFonts.poppins(
               fontSize: 20,
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.w500,
               fontStyle: FontStyle.italic,
             ),
           ),
-            iconTheme: IconThemeData(color: Colors.white),
+            iconTheme: IconThemeData(color: Colors.black),
           actions: [
             Padding(
               padding: EdgeInsets.only(top: 0, right: 1),
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage>
             PopupMenuButton(
               onSelected: (selected) {
                 if (selected == 'Ajustes') {
-                  Navigator.pushNamed(context, 'Ajustes');
+                  Navigator.pushNamed(context, 'ajustes');
                 }
               },
               elevation: 10,
@@ -171,16 +172,17 @@ class _HomePageState extends State<HomePage>
             ? floatingActionButton(Icon(Icons.message))
             : _tabController.index == 1
             ? floatingActionButtonEdit(
-            Icon(Icons.edit), Icon(Icons.camera_alt))
-            : _tabController.index == 3
-            ? floatingActionButton(Icon(Icons.add_call))
+            Icon(Icons.edit),
+            Icon(Icons.camera_alt))
+            : _tabController.index == 2
+            ? floatingActionButton(Icon(Icons.camera_alt))
             : Container());
   }
 
   Widget floatingActionButton(Icon icon) {
     return new FloatingActionButton(
-      foregroundColor: Colors.white,
-      backgroundColor: Color(0xFF075E55),
+      foregroundColor: Colors.black,
+      backgroundColor: Colors.white,
       child: icon,
       onPressed: () {},
     );
@@ -199,6 +201,8 @@ class _HomePageState extends State<HomePage>
         ),
         SizedBox(height: 10),
         FloatingActionButton(
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.white,
           child: cameraIcon,
           onPressed: () {
             Navigator.push(

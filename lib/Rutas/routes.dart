@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trivai_chat_social/Page/AjustesPage.dart';
 import 'package:trivai_chat_social/Page/verificacion.dart';
 import '../Page/HomePage.dart';
 import '../Page/LoginPage.dart';
@@ -12,6 +13,9 @@ class Routes {
   static const String verification = 'verification';
   static const String userInfo = 'user-info';
   static const String home = 'home';
+  static const String ajustes = 'ajustes';
+
+
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -44,6 +48,10 @@ class Routes {
         return MaterialPageRoute(
           builder: (context) => const HomePage(),
         );
+      case ajustes:
+      return MaterialPageRoute(
+        builder: (context) => const AjustesPage(),
+      );
       // Agrega aquí la página de perfil que deseas mostrar
       // Ejemplo:
 
