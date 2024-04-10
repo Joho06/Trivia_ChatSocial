@@ -91,7 +91,7 @@ class _VerificationPageState extends State<VerificationPage> {
                       "Has intentado registrarte +59398557785. antes de solicitar un SMS o Llamada con tu código.",
                     ),
                     TextSpan(
-                      text: "Wrong number?",
+                      text: "¿Número equivocado?",
                       style: TextStyle(
                         color: context.theme?.blueColor,
                       ),

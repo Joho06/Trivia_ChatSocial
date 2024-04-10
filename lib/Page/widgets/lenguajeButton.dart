@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import '../utils/coloors.dart';
@@ -17,7 +19,7 @@ class _LanguageButtonState extends State<LanguageButton> {
   void showLanguageBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Coloors.backgroundDark,
+      backgroundColor: Coloors.backgroundLight,
       builder: (context) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -28,7 +30,7 @@ class _LanguageButtonState extends State<LanguageButton> {
                 height: 4,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: Coloors.greenDark,
+                  color: Coloors.greenLight,
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
@@ -66,6 +68,7 @@ class _LanguageButtonState extends State<LanguageButton> {
                   'English',
                   style: TextStyle(
                     color: Coloors.greenDark,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 selected: _selectedLocale.languageCode == 'en',
@@ -101,13 +104,13 @@ class _LanguageButtonState extends State<LanguageButton> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.black45,
+      color: Colors.black12,
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
         onTap: () => showLanguageBottomSheet(context),
         borderRadius: BorderRadius.circular(20),
         splashFactory: NoSplash.splashFactory,
-        highlightColor: Coloors.greenDark.withOpacity(0.2),
+        highlightColor: Coloors.greenLight.withOpacity(0.2),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -127,6 +130,7 @@ class _LanguageButtonState extends State<LanguageButton> {
                     : 'Español',
                 style: TextStyle(
                   color: Coloors.greenDark,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(width: 10),

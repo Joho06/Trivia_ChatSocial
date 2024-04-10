@@ -56,7 +56,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     showCountryPicker(
       context: context,
       showPhoneCode: true,
-      favorite: ['ET'],
+      favorite: ['EC'],
       countryListTheme: CountryListThemeData(
         bottomSheetHeight: 600,
         backgroundColor: Theme.of(context).backgroundColor,
@@ -69,7 +69,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             Icons.language,
             color: Coloors.greyDark,
           ),
-          hintText: 'Search country by code or name',
+          hintText: 'Buscar país por código o nombre',
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               color: context.theme?.greyColor?.withOpacity(0.2) ?? Colors.transparent,
@@ -108,6 +108,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
@@ -141,7 +142,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   TextSpan(
                     text: "¿Cuál es su número?",
                     style: TextStyle(
-                        color: Color(0xFF15678A),
+                        color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -192,7 +194,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           Text(
             'Se pueden aplicar cargos',
             style: TextStyle(
-              color: context.theme?.greyColor,
+              color: Colors.white,
             ),
           ),
         ],
@@ -201,7 +203,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       floatingActionButton: CustomElevatedButton(
         onPressed: sendCodeToPhone,
         text: 'Siguiente',
-        buttonWidth: 90,
+        buttonWidth: 150,
       ),
     );
   }
