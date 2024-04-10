@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
-import 'package:flutter/material.dart'; // Importa NoSplash
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import '../utils/coloors.dart';
 import '../utils/custom_icon_button.dart';
 
-class LanguageButton extends StatelessWidget {
+class LanguageButton extends StatefulWidget {
   const LanguageButton({Key? key}) : super(key: key);
+
+  @override
+  _LanguageButtonState createState() => _LanguageButtonState();
+}
+
+class _LanguageButtonState extends State<LanguageButton> {
+  // Inicialmente seleccionado Español
+  Locale _selectedLocale = const Locale('es', 'ES');
 
   void showLanguageBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -53,29 +59,29 @@ class LanguageButton extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  _changeLanguage(context, 'en');
+                  _changeLanguage(context, const Locale('en', 'US'));
                   Navigator.pop(context);
                 },
-                title: Text(
+                title: const Text(
                   'English',
                   style: TextStyle(
                     color: Coloors.greenDark,
                   ),
                 ),
-                selected: _isLanguageSelected(context, 'en'),
+                selected: _selectedLocale.languageCode == 'en',
               ),
               ListTile(
                 onTap: () {
-                  _changeLanguage(context, 'es');
+                  _changeLanguage(context, const Locale('es', 'ES'));
                   Navigator.pop(context);
                 },
-                title: Text(
+                title: const Text(
                   'Español',
                   style: TextStyle(
                     color: Coloors.greenDark,
                   ),
                 ),
-                selected: _isLanguageSelected(context, 'es'),
+                selected: _selectedLocale.languageCode == 'es',
               ),
             ],
           ),
@@ -84,25 +90,24 @@ class LanguageButton extends StatelessWidget {
     );
   }
 
-  void _changeLanguage(BuildContext context, String languageCode) {
-    final locale = Locale(languageCode);
-    LocaleProvider.locale = locale; // Cambiar el idioma aquí
-  }
-
-  bool _isLanguageSelected(BuildContext context, String languageCode) {
-    return LocaleProvider.locale?.languageCode == languageCode;
+  void _changeLanguage(BuildContext context, Locale locale) {
+    setState(() {
+      _selectedLocale = locale;
+    });
+    // Cambiar el idioma de la aplicación
+    LocaleProvider.locale = locale;
   }
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: Colors.black45,
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
         onTap: () => showLanguageBottomSheet(context),
         borderRadius: BorderRadius.circular(20),
         splashFactory: NoSplash.splashFactory,
-        highlightColor: Coloors.greenDark.withOpacity(0.2), // Ajustar el color de resaltado
+        highlightColor: Coloors.greenDark.withOpacity(0.2),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -110,14 +115,16 @@ class LanguageButton extends StatelessWidget {
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Icon(
                 Icons.language,
                 color: Coloors.greenDark,
               ),
               SizedBox(width: 10),
               Text(
-                'Español',
+                _selectedLocale.languageCode == 'en'
+                    ? 'English'
+                    : 'Español',
                 style: TextStyle(
                   color: Coloors.greenDark,
                 ),
@@ -142,6 +149,5 @@ class LocaleProvider {
 
   static set locale(Locale? value) {
     _locale = value;
-    // Aquí puedes realizar cualquier acción adicional después de cambiar el idioma, como recargar la interfaz de usuario
   }
 }

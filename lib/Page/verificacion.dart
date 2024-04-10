@@ -21,18 +21,42 @@ class VerificationPage extends StatefulWidget {
 
 class _VerificationPageState extends State<VerificationPage> {
   WidgetRef? get ref => null;
+  bool verificationSuccess = false;
 
   void verifySmsCode(
       BuildContext context,
       WidgetRef ref,
       String smsCode,
       ) {
-    ref.read(authControllerProvider).verifySmsCode(
-      context: context,
-      smsCodeId: widget.smsCodeId,
-      smsCode: smsCode,
-      mounted: true,
-    );
+    // Supongamos que authControllerProvider devuelve un Provider del controlador de autenticación.
+    // Aquí deberías llamar al método de verificación del código SMS del controlador de autenticación.
+    // Estableceremos verificationSuccess en true o false dependiendo del resultado de la verificación.
+    bool verifySmsCode(
+        BuildContext context,
+        WidgetRef ref,
+        String smsCode,
+        ) {
+      // Supongamos que authControllerProvider devuelve un Provider del controlador de autenticación.
+      // Aquí deberías llamar al método de verificación del código SMS del controlador de autenticación.
+      // Estableceremos verificationSuccess en true o false dependiendo del resultado de la verificación.
+      bool verified = ref.read(authControllerProvider).verifySmsCode(
+        context: context,
+        smsCodeId: widget.smsCodeId,
+        smsCode: smsCode,
+        mounted: true,
+      );
+
+      setState(() {
+        verificationSuccess = verified;
+      });
+
+      return verified;
+    }
+
+
+    setState(() {
+      verificationSuccess = verified;
+    });
   }
 
   @override
@@ -64,7 +88,7 @@ class _VerificationPageState extends State<VerificationPage> {
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: TextStyle(color: context.theme?.greyColor),
+                  style: TextStyle(color: Colors.orange),
                   children: [
                     const TextSpan(
                       text:
@@ -93,7 +117,6 @@ class _VerificationPageState extends State<VerificationPage> {
                     verifySmsCode(context, ref!, value);
                   }
                 },
-
               ),
             ),
             const SizedBox(height: 20),
@@ -131,6 +154,19 @@ class _VerificationPageState extends State<VerificationPage> {
                 ),
               ],
             ),
+            if (verificationSuccess)
+              ElevatedButton(
+                onPressed: () {
+                  // Redirigir a la siguiente pantalla si la verificación fue exitosa.
+                  // Navigator.push(...);
+                },
+                child: Text('Continue'),
+              )
+            else if (verificationSuccess == false)
+              Text(
+                'Verification failed. Please try again.',
+                style: TextStyle(color: Colors.red),
+              ),
           ],
         ),
       ),
