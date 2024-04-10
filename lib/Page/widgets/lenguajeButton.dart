@@ -82,6 +82,7 @@ class _LanguageButtonState extends State<LanguageButton> {
                   'Español',
                   style: TextStyle(
                     color: Coloors.greenDark,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 selected: _selectedLocale.languageCode == 'es',
