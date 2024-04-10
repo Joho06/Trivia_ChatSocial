@@ -39,9 +39,7 @@ class _VerificationPageState extends State<VerificationPage> {
         WidgetRef ref,
         String smsCode,
         ) {
-      // Supongamos que authControllerProvider devuelve un Provider del controlador de autenticación.
-      // Aquí deberías llamar al método de verificación del código SMS del controlador de autenticación.
-      // Estableceremos verificationSuccess en true o false dependiendo del resultado de la verificación.
+
       bool verified = ref.read(authControllerProvider as ProviderListenable<bool>);
 
       setState(() {
