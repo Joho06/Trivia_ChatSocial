@@ -32,7 +32,25 @@ class _VerificationPageState extends State<VerificationPage> {
       WidgetRef ref,
       String smsCode,
       ) {
-    // No hay verificación automática aquí
+
+    bool verifySmsCode(
+        BuildContext context,
+        WidgetRef ref,
+        String smsCode,
+        ) {
+      // Supongamos que authControllerProvider devuelve un Provider del controlador de autenticación.
+      // Aquí deberías llamar al método de verificación del código SMS del controlador de autenticación.
+      // Estableceremos verificationSuccess en true o false dependiendo del resultado de la verificación.
+      bool verified = ref.read(authControllerProvider as ProviderListenable<bool>);
+
+      setState(() {
+        verificationSuccess = verified;
+      });
+
+      return verified;
+    }
+
+
   }
 
   @override
@@ -69,6 +87,7 @@ class _VerificationPageState extends State<VerificationPage> {
                     const TextSpan(
                       text:
                       "Has intentado registrarte +251935838471. antes de solicitar un SMS o Llamada con tu código.",
+
                     ),
                     TextSpan(
                       text: "Wrong number?",

@@ -3,15 +3,13 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:trivai_chat_social/Page/HomePage.dart';
 import 'package:trivai_chat_social/Page/utils/auth/controller.dart';
 import 'package:trivai_chat_social/Page/utils/coloors.dart';
 import 'package:trivai_chat_social/Page/utils/custom_elevated_button.dart';
 import 'package:trivai_chat_social/Page/utils/custom_text_field.dart';
 import 'package:trivai_chat_social/Page/utils/show_alert.dart';
-
-
-
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key, this.profileImageUrl}) : super(key: key);
@@ -28,7 +26,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
   late TextEditingController usernameController;
 
-  get ref => null;
+  ProviderRef? get ref => null; // Asegúrate de inicializar ref correctamente
 
   saveUserDataToFirebase() {
     String username = usernameController.text;
@@ -44,22 +42,52 @@ class _UserInfoPageState extends State<UserInfoPage> {
       );
     }
 
-    ref.read(authControllerProvider).saveUserInfoToFirestore(
-      username: username,
-      profileImage: imageCamera ?? imageGallery ?? widget.profileImageUrl ?? '',
-      context: context,
-      mounted: mounted,
-    );
+    // Verifica que ref no sea nulo antes de usarlo
+    if (ref != null) {
+      ref!.read(authControllerProvider).saveUserInfoToFirestore(
+        username: username,
+        profileImage: imageCamera ?? imageGallery ?? widget.profileImageUrl ?? '',
+        context: context,
+        mounted: mounted,
+
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()), // Reemplaza NextPage con la página a la que deseas navegar
+      );
+    } else {
+      // Manejo de error si ref es nulo
+      // Puedes mostrar un mensaje de error o realizar alguna otra acción aquí
+      print('Error: ref is null');
+
+      // Navegar a la siguiente página después de guardar los datos
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()), // Reemplaza NextPage con la página a la que deseas navegar
+      );
+    }
+
+
   }
 
   imagePickerTypeBottomSheet() {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Container(
+              width: double.infinity,
+              height: 100,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/login.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(height: 10), // Espacio entre la imagen y las opciones de selección
             Row(
               children: [
                 const SizedBox(width: 20),
@@ -78,7 +106,6 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 const SizedBox(width: 15),
               ],
             ),
-
             const SizedBox(height: 5),
             Row(
               children: [
@@ -86,12 +113,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 imagePickerIcon(
                   onTap: pickImageFromCamera,
                   icon: Icons.camera_alt_rounded,
-                  text: 'Camera',
+                  text: 'Camara',
                 ),
                 const SizedBox(width: 15),
                 imagePickerIcon(
                   onTap: () async {
-                    log('hello');
+                    log('Hola');
                     Navigator.pop(context);
                     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
                     if (image == null) return;
@@ -101,7 +128,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     });
                   },
                   icon: Icons.photo_camera_back_rounded,
-                  text: 'Gallery',
+                  text: 'Galeria',
                 ),
               ],
             ),
@@ -111,6 +138,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
       },
     );
   }
+
 
   pickImageFromCamera() async {
     try {
@@ -164,13 +192,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         title: Text(
-          'Profile info',
+          'Información de perfil',
           style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
           ),
@@ -182,7 +209,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
         child: Column(
           children: [
             Text(
-              'Please provide your name and an optional profile photo',
+              'Proporcione su nombre y una foto de perfil opcional.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
@@ -235,7 +262,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 Expanded(
                   child: CustomTextField(
                     controller: usernameController,
-                    hintText: 'Type your name here',
+                    hintText: 'Escribe tu nombre aquí',
                     textAlign: TextAlign.start,
                     autoFocus: true,
                   ),
@@ -254,8 +281,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: CustomElevatedButton(
         onPressed: saveUserDataToFirebase,
-        text: 'NEXT',
-        buttonWidth: 90,
+        text: 'Siguiente',
+        buttonWidth: 110,
       ),
     );
   }
