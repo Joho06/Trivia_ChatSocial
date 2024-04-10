@@ -30,19 +30,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     if (phoneNumber.isEmpty) {
       return showAlertDialog(
         context: context,
-        message: "Please enter your phone number",
+        message: "Por favor, introduzca su número de teléfono",
       );
     } else if (phoneNumber.length < 9) {
       return showAlertDialog(
         context: context,
         message:
-        'The phone number you entered is too short for the country: $countryName\n\nInclude your area code if you haven\'t',
+        'El número de teléfono que ingresaste es demasiado corto para el país.: $countryName\n\nInclude your area code if you haven\'t',
       );
     } else if (phoneNumber.length > 10) {
       return showAlertDialog(
         context: context,
         message:
-        "The phone number you entered is too long for the country: $countryName",
+        "El número de teléfono que ingresaste es demasiado largo para el país.: $countryName",
       );
     }
 
@@ -113,7 +113,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         title: Text(
-          'Enter your phone number',
+          'Ingrese su número telefónico',
           style: TextStyle(
             color: context.theme?.authAppbarTextColor,
           ),
@@ -204,7 +204,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         onPressed: sendCodeToPhone,
         text: 'Siguiente',
 
-        buttonWidth: 110,
+        buttonWidth: 120,
 
       ),
     );

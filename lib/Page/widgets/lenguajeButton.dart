@@ -30,7 +30,7 @@ class _LanguageButtonState extends State<LanguageButton> {
                 height: 4,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: Coloors.greenLight,
+                  color: Colors.black38,
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
@@ -41,7 +41,7 @@ class _LanguageButtonState extends State<LanguageButton> {
                   CustomIconButton(
                     onPressed: () => Navigator.pop(context),
                     icon: Icons.close,
-                    iconColor: Coloors.greenDark,
+                    iconColor: Colors.black54,
                   ),
                   const SizedBox(width: 10),
                   const Text(
@@ -49,7 +49,7 @@ class _LanguageButtonState extends State<LanguageButton> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Coloors.greenDark,
+                      color: Colors.black87,
                     ),
                   ),
                 ],
@@ -67,7 +67,7 @@ class _LanguageButtonState extends State<LanguageButton> {
                 title: const Text(
                   'English',
                   style: TextStyle(
-                    color: Coloors.greenDark,
+                    color: Colors.black54,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -81,7 +81,7 @@ class _LanguageButtonState extends State<LanguageButton> {
                 title: const Text(
                   'Español',
                   style: TextStyle(
-                    color: Coloors.greenDark,
+                    color: Colors.black54,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

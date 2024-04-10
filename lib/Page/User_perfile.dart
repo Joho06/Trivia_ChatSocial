@@ -269,7 +269,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
       floatingActionButton: CustomElevatedButton(
         onPressed: saveUserDataToFirebase,
         text: 'Siguiente',
-        buttonWidth: 110,
+        buttonWidth: 120,
       ),
     );
   }
