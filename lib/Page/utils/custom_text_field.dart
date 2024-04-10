@@ -17,7 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.onChanged,
     this.fontSize,
-    this.autoFocus,
+    this.autoFocus, required
   });
 
   final TextEditingController? controller;

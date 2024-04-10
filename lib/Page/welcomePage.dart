@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:trivai_chat_social/Page/utils/custom_elevated_button.dart';
 import 'package:trivai_chat_social/Page/widgets/lenguajeButton.dart';
+import 'package:trivai_chat_social/Rutas/routes.dart';
 
 import 'LoginPage.dart';
 
@@ -12,10 +14,18 @@ class welcomePage extends StatefulWidget {
 }
 
 class _welcomePageState extends State<welcomePage> {
+
+  navigateToLoginPage(context) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      Routes.login,
+          (route) => false,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF111B21),
+      backgroundColor: Color(0xFFFFFFFF),
       body: Column(
         children: [
           Expanded(
@@ -36,7 +46,7 @@ class _welcomePageState extends State<welcomePage> {
                   'Bienvenidos a Trivai',
                   style: TextStyle(
                     fontSize: 24,
-                    color: Color(0xFF53D9EB),
+                    color: Color(0xFF0066FF),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -50,28 +60,28 @@ class _welcomePageState extends State<welcomePage> {
                     text: const TextSpan(
                         text: 'Lee nuestra ',
                         style: TextStyle(
-                          color: Color(0xFFFFFFFF),
+                          color: const Color(0xff000a884),
                           height: 1.5,
                         ),
                         children: [
                           TextSpan(
                             text: 'Politicas de privacidad. ',
                             style: TextStyle(
-                              color: Color(0xFF53D9EB),
+                              color: Color(0xFF1100FF),
                             ),
                           ),
                           TextSpan(
                             text:
                                 'Toca "Aceptar y continuar" para aceptar los ',
                             style: TextStyle(
-                              color: Color(0xFFFFFFFF),
+                              color: Colors.black,
                               height: 1.5,
                             ),
                           ),
                           TextSpan(
                             text: 'Términos y Condiciones',
                             style: TextStyle(
-                              color: Color(0xFF53D9EB),
+                              color: Color(0xFF1100FF),
                             ),
                           ),
                         ]),
@@ -80,23 +90,11 @@ class _welcomePageState extends State<welcomePage> {
                 SizedBox(
                   height: 40,
                   width: MediaQuery.of(context).size.width - 100,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const LoginPage()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0XFF00A884),
-                        foregroundColor: const Color(0xFF111B21),
-                        splashFactory: NoSplash.splashFactory,
-                        elevation: 0,
-                        shadowColor: Colors.transparent,
-                      ),
-                      child: const Text('ACEPTAR Y CONTINUAR',
-                      ),
+                  child: CustomElevatedButton(
+                    onPressed: () => navigateToLoginPage(context),
+                      text: 'ACEPTAR Y CONTINUAR',
                   ),
+
                 ),
                 const SizedBox(height: 20),
                 const LanguageButton(),

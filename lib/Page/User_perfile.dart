@@ -26,7 +26,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
   late TextEditingController usernameController;
 
-  ProviderRef? get ref => null; // Asegúrate de inicializar ref correctamente
+  ProviderRef? get ref => null;
 
   saveUserDataToFirebase() {
     String username = usernameController.text;
@@ -53,17 +53,14 @@ class _UserInfoPageState extends State<UserInfoPage> {
       );
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()), // Reemplaza NextPage con la página a la que deseas navegar
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     } else {
-      // Manejo de error si ref es nulo
-      // Puedes mostrar un mensaje de error o realizar alguna otra acción aquí
       print('Error: ref is null');
 
-      // Navegar a la siguiente página después de guardar los datos
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()), // Reemplaza NextPage con la página a la que deseas navegar
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     }
 

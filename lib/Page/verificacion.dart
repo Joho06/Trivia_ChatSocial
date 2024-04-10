@@ -33,6 +33,7 @@ class _VerificationPageState extends State<VerificationPage> {
       String smsCode,
       ) {
 
+
     bool verifySmsCode(
         BuildContext context,
         WidgetRef ref,
@@ -86,11 +87,12 @@ class _VerificationPageState extends State<VerificationPage> {
                   children: [
                     const TextSpan(
                       text:
-                      "Has intentado registrarte +251935838471. antes de solicitar un SMS o Llamada con tu código.",
+
+                      "Has intentado registrarte +59398557785. antes de solicitar un SMS o Llamada con tu código.",
 
                     ),
                     TextSpan(
-                      text: "Wrong number?",
+                      text: "¿Número equivocado?",
                       style: TextStyle(
                         color: context.theme?.blueColor,
                       ),
