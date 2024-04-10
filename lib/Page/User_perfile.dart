@@ -9,10 +9,6 @@ import 'package:trivai_chat_social/Page/utils/custom_elevated_button.dart';
 import 'package:trivai_chat_social/Page/utils/custom_text_field.dart';
 import 'package:trivai_chat_social/Page/utils/show_alert.dart';
 
-
-
-
-
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key, this.profileImageUrl}) : super(key: key);
 

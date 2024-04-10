@@ -57,17 +57,17 @@ dependencies:
 
 
 flutter_native_splash:
-  color: "#FFFFFF"
+  color: "#111B21"
   color_dark: "#111B21"
   image: assets/images/login.png
   image_dark: assets/images/login.png
   android_12:
-    color: "#FFFFFF"
+    color: "#111B21F"
     color_dark: "#111B21"
     image: assets/images/login.png
     image_dark: assets/images/login.png
-    icon_background_color: "#FFFFFF"
-    icon_background_color_dark: "#111B21"
+    icon_background_color: "#111B21"
+
 
 
 dev_dependencies:

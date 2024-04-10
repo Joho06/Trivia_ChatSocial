@@ -68,7 +68,7 @@ class _VerificationPageState extends State<VerificationPage> {
                   children: [
                     const TextSpan(
                       text:
-                      "You've tried to register +251935838471. before requesting an SMS or Call with your code.",
+                      "You've tried to register +59398557785. before requesting an SMS or Call with your code.",
                     ),
                     TextSpan(
                       text: "Wrong number?",
