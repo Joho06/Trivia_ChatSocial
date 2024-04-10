@@ -1,5 +1,6 @@
 //import 'package:chatrivaiapp/Screens/ChatSamples/ChatBottomBar.dart';
 import 'package:flutter/material.dart';
+import 'package:trivai_chat_social/Screens/ChatSamples/ChatBottomBar.dart';
 import 'ChatSamples/ChatSample.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -48,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 15,
-                        color: Colors.black,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -58,7 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
-
+      bottomSheet: ChatBottomBar(),
     );
   }
 }

@@ -5,11 +5,12 @@ import 'package:trivai_chat_social/Page/utils/custom_theme_extension.dart';
 showAlertDialog({
   required BuildContext context,
   required String message,
+  //required String message,
   String? btnText,
 }) {
   return showDialog(
     context: context,
-    builder: (context) {
+      builder: (context) {
       return AlertDialog(
         content: Text(
           message,

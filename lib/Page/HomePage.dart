@@ -83,26 +83,7 @@ class _HomePageState extends State<HomePage>
               offset: Offset(0, 50),
               itemBuilder: (context) =>
               [
-                PopupMenuItem(
-                  value: 'Nuevo Grupo',
-                  child: Text(
-                    'Nuevo Grupo',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                PopupMenuItem(
-                  value: 'Vinculados',
-                  child: Text(
-                    'Vinculados',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
+
                 PopupMenuItem(
                   value: 'Ajustes',
                   child: Text(
@@ -120,9 +101,10 @@ class _HomePageState extends State<HomePage>
         body: TabBarView(
           controller: _tabController,
           children: [
+            ChatScreen(),
             ComunidadScreen(),
             StatusScreen(),
-            ChatScreen(),
+
             //CallScreen(),
           ],
         ),
@@ -138,11 +120,21 @@ class _HomePageState extends State<HomePage>
               tabs: [
                 Tab(
                   icon: Opacity(
+                    opacity: _tabController.index == 0 ? 1.0 : 0.6,
+                    child: Icon(Icons.chat_outlined, color: Theme.of(context).textTheme.caption!.color, size: 24), // Tamaño de icono ajustado a 24
+                  ),
+                  child: Text(
+                    'IA',
+                    style: TextStyle(color: Theme.of(context).textTheme.caption!.color, fontSize: 14), // Tamaño de texto ajustado a 14
+                  ),
+                ),
+                Tab(
+                  icon: Opacity(
                     opacity: _tabController.index == 2 ? 1.0 : 0.6,
                     child: Icon(Icons.groups_outlined, color: Theme.of(context).textTheme.caption!.color, size: 24), // Tamaño de icono ajustado a 24
                   ),
                   child: Text(
-                    'Comunidad',
+                    'Social',
                     style: TextStyle(color: Theme.of(context).textTheme.caption!.color, fontSize: 14), // Tamaño de texto ajustado a 14
                   ),
                 ),
@@ -157,16 +149,7 @@ class _HomePageState extends State<HomePage>
                   ),
                 ),
 
-                Tab(
-                  icon: Opacity(
-                    opacity: _tabController.index == 0 ? 1.0 : 0.6,
-                    child: Icon(Icons.chat_outlined, color: Theme.of(context).textTheme.caption!.color, size: 24), // Tamaño de icono ajustado a 24
-                  ),
-                  child: Text(
-                    'IA',
-                    style: TextStyle(color: Theme.of(context).textTheme.caption!.color, fontSize: 14), // Tamaño de texto ajustado a 14
-                  ),
-                ),
+
                 /*Tab(
           icon: Opacity(
             opacity: _tabController.index == 3 ? 1.0 : 0.6,
