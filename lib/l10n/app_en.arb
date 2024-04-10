@@ -1,0 +1,14 @@
+{
+  "title": "Welcome",
+  "@title": {
+    "description": "The title of the welcome screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "hello": "Hello",
+  "@hello": {
+    "description": "A greeting message",
+    "type": "text",
+    "placeholders": {}
+  }
+}

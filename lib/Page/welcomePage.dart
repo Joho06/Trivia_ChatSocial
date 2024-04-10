@@ -15,38 +15,39 @@ class _welcomePageState extends State<welcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF111B21),
+      backgroundColor: const Color(0xFF111B21),
       body: Column(
         children: [
           Expanded(
             child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 50),
+                padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: Image.asset(
                   'assets/images/login.png',
-                  color: Color(0xFF000A884),
+                  color: const Color(0xff000a884),
                 )),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Expanded(
             child: Column(
               children: [
-                Text(
-                  'Bienvenida a whatsapp',
+                 const Text(
+                  'Bienvenida a Trivai',
                   style: TextStyle(
                     fontSize: 22,
+                    color: Color(0xFF53D9EB),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 30,
                     vertical: 30,
                   ),
                   child: RichText(
                     textAlign: TextAlign.center,
-                    text: TextSpan(
+                    text: const TextSpan(
                         text: 'Lee nuestra ',
                         style: TextStyle(
                           color: Color(0xFFFFFFFF),
@@ -83,22 +84,22 @@ class _welcomePageState extends State<welcomePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          MaterialPageRoute(builder: (context) => const LoginPage()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0XFF00A884),
-                        foregroundColor: Color(0xFF111B21),
+                        backgroundColor: const Color(0XFF00A884),
+                        foregroundColor: const Color(0xFF111B21),
                         splashFactory: NoSplash.splashFactory,
                         elevation: 0,
                         shadowColor: Colors.transparent,
                       ),
-                      child: Text('ACEPTAR Y CONTINUAR',
+                      child: const Text('ACEPTAR Y CONTINUAR',
                       ),
                   ),
                 ),
-                SizedBox(height: 20),
-                LanguageButton(),
+                const SizedBox(height: 20),
+                const LanguageButton(),
 
               ],
             ),
