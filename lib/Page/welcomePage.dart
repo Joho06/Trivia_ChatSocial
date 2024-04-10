@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trivai_chat_social/Page/utils/custom_elevated_button.dart';
@@ -33,7 +35,7 @@ class _welcomePageState extends State<welcomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: Image.asset(
                   'assets/images/login.png',
-                  color: const Color(0xff000a884),
+                  //color: const Color(0xff000a884),
                 )),
           ),
           const SizedBox(
@@ -46,7 +48,7 @@ class _welcomePageState extends State<welcomePage> {
                   'Bienvenidos a Trivai',
                   style: TextStyle(
                     fontSize: 24,
-                    color: Color(0xFF0066FF),
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -60,14 +62,15 @@ class _welcomePageState extends State<welcomePage> {
                     text: const TextSpan(
                         text: 'Lee nuestra ',
                         style: TextStyle(
-                          color: const Color(0xff000a884),
+                          color: Colors.black,
                           height: 1.5,
                         ),
                         children: [
                           TextSpan(
                             text: 'Politicas de privacidad. ',
                             style: TextStyle(
-                              color: Color(0xFF1100FF),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           TextSpan(
@@ -81,7 +84,8 @@ class _welcomePageState extends State<welcomePage> {
                           TextSpan(
                             text: 'Términos y Condiciones',
                             style: TextStyle(
-                              color: Color(0xFF1100FF),
+                              color: Colors.black,
+                                fontWeight: FontWeight.bold
                             ),
                           ),
                         ]),
@@ -92,7 +96,8 @@ class _welcomePageState extends State<welcomePage> {
                   width: MediaQuery.of(context).size.width - 100,
                   child: CustomElevatedButton(
                     onPressed: () => navigateToLoginPage(context),
-                      text: 'ACEPTAR Y CONTINUAR',
+                    text: 'ACEPTAR Y CONTINUAR',
+                   // Cambia el color según lo deseado
                   ),
 
                 ),

@@ -11,6 +11,7 @@ class CustomElevatedButton extends StatelessWidget {
   final double? buttonWidth;
   final VoidCallback onPressed;
   final String text;
+  get color => null;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,14 @@ class CustomElevatedButton extends StatelessWidget {
       width: buttonWidth ?? MediaQuery.of(context).size.width - 100,
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(text),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white38, // Cambia el color del botón aquí
+        ),
+        child: Text(text,
+          style: TextStyle(
+            color: Colors.black, // Cambia el color del texto según lo deseado
+          ),
+        ),
       ),
     );
   }
