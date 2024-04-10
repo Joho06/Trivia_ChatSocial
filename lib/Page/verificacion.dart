@@ -40,7 +40,7 @@ class VerificationPage extends ConsumerWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Verify your number',
+          'Verifica tu número',
           style: TextStyle(
             color: context.theme?.authAppbarTextColor,
           ),
@@ -64,13 +64,15 @@ class VerificationPage extends ConsumerWidget {
                   style: TextStyle(color: context.theme?.greyColor),
                   children: [
                     const TextSpan(
+                      style: TextStyle(color: Colors.black),
                       text:
-                      "You've tried to register +251935838471. before requesting an SMS or Call with your code.",
+                      "Has intentado registrarte +59398557785. antes de solicitar un SMS o Llamada con tu código.",
                     ),
                     TextSpan(
-                      text: "Wrong number?",
+                      text: "¿Número equivocado?",
                       style: TextStyle(
-                        color: context.theme?.blueColor,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -94,7 +96,7 @@ class VerificationPage extends ConsumerWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Enter 6-digit code',
+              'Ingrese el codigo de 6 dígitos',
               style: TextStyle(color: context.theme?.greyColor),
             ),
             const SizedBox(height: 30),
@@ -103,7 +105,7 @@ class VerificationPage extends ConsumerWidget {
                 Icon(Icons.message, color: context.theme?.greyColor),
                 const SizedBox(width: 20),
                 Text(
-                  'Resend SMS',
+                  'Reenveriar SMS',
                   style: TextStyle(
                     color: context.theme?.greyColor,
                   ),
@@ -120,7 +122,7 @@ class VerificationPage extends ConsumerWidget {
                 Icon(Icons.phone, color: context.theme?.greyColor),
                 const SizedBox(width: 20),
                 Text(
-                  'Call Me',
+                  'LLamar',
                   style: TextStyle(
                     color: context.theme?.greyColor,
                   ),
@@ -243,7 +245,7 @@ class _VerificationPageState extends State<VerificationPage> {
             ),
             const SizedBox(height: 20),
             Text(
-              'Ingrese el codigo de 6 dígitos',
+              '',
               style: TextStyle(color: context.theme?.greyColor),
             ),
             const SizedBox(height: 30),
@@ -252,7 +254,7 @@ class _VerificationPageState extends State<VerificationPage> {
                 Icon(Icons.message, color: context.theme?.greyColor),
                 const SizedBox(width: 20),
                 Text(
-                  'Reenveriar SMS',
+                  '',
                   style: TextStyle(
                     color: context.theme?.greyColor,
                   ),
