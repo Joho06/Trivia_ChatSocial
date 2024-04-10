@@ -1,5 +1,6 @@
 class UserModel {
   final String username;
+  final String mail;
   final String uid;
   final String profileImageUrl;
   final bool active;
@@ -9,6 +10,7 @@ class UserModel {
 
   UserModel({
     required this.username,
+    required this.mail,
     required this.uid,
     required this.profileImageUrl,
     required this.active,
@@ -20,6 +22,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return {
       'username': username,
+      'mail': mail,
       'uid': uid,
       'profileImageUrl': profileImageUrl,
       'active': active,
@@ -32,6 +35,7 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       username: map['username'] ?? '',
+      mail: map['mail'] ?? '',
       uid: map['uid'] ?? '',
       profileImageUrl: map['profileImageUrl'] ?? '',
       active: map['active'] ?? false,

@@ -28,6 +28,8 @@ class AuthRepository {
     required this.realtime,
   });
 
+  get mail => null;
+
   Stream<UserModel> getUserPresenceStatus({required String uid}) {
     return firestore
         .collection('users')
@@ -94,6 +96,7 @@ class AuthRepository {
 
       UserModel user = UserModel(
         username: username,
+        mail: mail,
         uid: uid,
         profileImageUrl: profileImageUrl,
         active: true,
