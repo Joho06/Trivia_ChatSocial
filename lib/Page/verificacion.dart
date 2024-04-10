@@ -62,7 +62,7 @@ class _VerificationPageState extends State<VerificationPage> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Veriica tu número',
+          'Verifica tu número',
           style: TextStyle(
             color: context.theme?.authAppbarTextColor,
           ),
@@ -112,7 +112,7 @@ class _VerificationPageState extends State<VerificationPage> {
                 onChanged: (value) {
                   if (value.length == 6 && ref != null) {
                     // Cuando se complete la verificación manualmente, puedes agregar la lógica de navegación aquí
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfoPage()));
                   }
                 },
               ),
@@ -154,7 +154,6 @@ class _VerificationPageState extends State<VerificationPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                // Redirigir a la siguiente pantalla cuando se presione el botón "Continue"
                 Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfoPage()));
               },
               child: Text('Verificar'),
