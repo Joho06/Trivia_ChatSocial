@@ -7,16 +7,17 @@ class AjustesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         //leadingWidth: 80,
         iconTheme: IconThemeData(
-          color: Colors.white, // Establecer color blanco para el icono
+          color: Colors.black, // Establecer color blanco para el icono
         ),
         title: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Text(
             'Ajustes',
             style: TextStyle(
-              color: Colors.white, // Establecer color blanco para el texto
+              color: Colors.black, // Establecer color blanco para el texto
             ),
           ),
         ),

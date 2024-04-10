@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -105,6 +104,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   onTap: pickImageFromCamera,
                   icon: Icons.camera_alt_rounded,
                   text: 'Camara',
+
                 ),
                 const SizedBox(width: 15),
                 imagePickerIcon(
@@ -220,7 +220,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   border: Border.all(
                     color: imageCamera == null && imageGallery == null
                         ? Colors.transparent
-                        :  Colors.black,
+                        :  Colors.black38,
                   ),
                 ),
                 child: ClipOval(
