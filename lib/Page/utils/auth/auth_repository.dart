@@ -125,7 +125,7 @@ class AuthRepository {
     try {
       showLoadingDialog(
         context: context,
-        message: 'Verifiying code ... ',
+        message: 'Verificando codigo ... ',
       );
       final credential = PhoneAuthProvider.credential(
         verificationId: smsCodeId,
@@ -153,7 +153,7 @@ class AuthRepository {
     try {
       showLoadingDialog(
         context: context,
-        message: "Sending a verification code to $phoneNumber",
+        message: "Enviando un código de verificación a $phoneNumber",
       );
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
