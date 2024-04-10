@@ -103,7 +103,7 @@ class _ComunidadScreenState extends State<ComunidadScreen> {
                       IconButton(
                         icon: const Icon(Icons.comment_outlined),
                         onPressed: () {
-                          _mostrarDialogoComentario(context, index);
+                          __agregarComentario(index);
                         },
                       ),
                     ],
@@ -117,7 +117,6 @@ class _ComunidadScreenState extends State<ComunidadScreen> {
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-
 
                 const Divider(),
                 Column(
@@ -141,7 +140,7 @@ class _ComunidadScreenState extends State<ComunidadScreen> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             CircleAvatar(
+              CircleAvatar(
                 radius: 20,
                 backgroundImage: AssetImage(imagenesUsuario[index]),
               ),
@@ -150,7 +149,7 @@ class _ComunidadScreenState extends State<ComunidadScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
+                    Text(
                       nombres[index],
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
@@ -179,46 +178,64 @@ class _ComunidadScreenState extends State<ComunidadScreen> {
     return listaComentarios;
   }
 
-  _mostrarDialogoComentario(BuildContext context, int index) {
-    showDialog(
+  __agregarComentario(int index) {
+    showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Agregar comentario'),
-          content: TextField(
-            controller: comentarioController,
-            decoration: const InputDecoration(hintText: 'Escribe tu comentario'),
+        return Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                String comentarioText = comentarioController.text.trim();
-                if (comentarioText.isNotEmpty) {
-                  setState(() {
-                    comentarios[index].add(comentarioText);
-                    comentarioController.clear();
-                  });
-                  Navigator.of(context).pop();
-                } else {
-                  // Si el campo está vacío, muestra un mensaje de error
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Por favor, escribe tu comentario'),
+          color: Colors.white70,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: comentarioController,
+                  decoration: InputDecoration(
+                    hintText: 'Escribe tu comentario',
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
                     ),
-                  );
-                }
-              },
-              child: const Text('Agregar'),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        String comentarioText = comentarioController.text.trim();
+                        if (comentarioText.isNotEmpty) {
+                          setState(() {
+                            comentarios[index].add(comentarioText);
+                            comentarioController.clear();
+                          });
+                          Navigator.of(context).pop();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Por favor, escribe tu comentario'),
+                            ),
+                          );
+                        }
+                      },
+
+                      child: Text('Enviar'),
+                    ),
+
+                  ],
+                ),
+              ],
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancelar'),
-            ),
-          ],
+          ),
         );
       },
     );
   }
-}
+  }
