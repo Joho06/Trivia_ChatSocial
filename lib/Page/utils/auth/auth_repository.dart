@@ -82,7 +82,7 @@ class AuthRepository {
     try {
       showLoadingDialog(
         context: context,
-        message: "Saving user info ... ",
+        message: "Guardando información del usuario...",
       );
       String uid = auth.currentUser!.uid;
       String profileImageUrl = profileImage is String ? profileImage : '';

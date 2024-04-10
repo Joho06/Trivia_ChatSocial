@@ -122,7 +122,7 @@ class _LanguageButtonState extends State<LanguageButton> {
             children: [
               Icon(
                 Icons.language,
-                color: Coloors.greenDark,
+                color: Colors.black,
               ),
               SizedBox(width: 10),
               Text(
@@ -130,14 +130,14 @@ class _LanguageButtonState extends State<LanguageButton> {
                     ? 'English'
                     : 'Español',
                 style: TextStyle(
-                  color: Coloors.greenDark,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(width: 10),
               Icon(
                 Icons.keyboard_arrow_down,
-                color: Coloors.greenDark,
+                color: Colors.black,
               ),
             ],
           ),

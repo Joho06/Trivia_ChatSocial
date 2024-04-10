@@ -31,16 +31,18 @@ class _welcomePageState extends State<welcomePage> {
       body: Column(
         children: [
           Expanded(
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 100), // Ajusta el valor según sea necesario
                 child: Image.asset(
                   'assets/images/login.png',
                   //color: const Color(0xff000a884),
-                )),
+                ),
+              ),
+            ),
           ),
-          const SizedBox(
-            height: 40,
-          ),
+          const SizedBox(height: 10,),
           Expanded(
             child: Column(
               children: [
