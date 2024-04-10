@@ -39,12 +39,7 @@ class _VerificationPageState extends State<VerificationPage> {
       // Supongamos que authControllerProvider devuelve un Provider del controlador de autenticación.
       // Aquí deberías llamar al método de verificación del código SMS del controlador de autenticación.
       // Estableceremos verificationSuccess en true o false dependiendo del resultado de la verificación.
-      bool verified = ref.read(authControllerProvider).verifySmsCode(
-        context: context,
-        smsCodeId: widget.smsCodeId,
-        smsCode: smsCode,
-        mounted: true,
-      );
+      bool verified = ref.read(authControllerProvider as ProviderListenable<bool>);
 
       setState(() {
         verificationSuccess = verified;
@@ -53,10 +48,6 @@ class _VerificationPageState extends State<VerificationPage> {
       return verified;
     }
 
-
-    setState(() {
-      verificationSuccess = verified;
-    });
   }
 
   @override

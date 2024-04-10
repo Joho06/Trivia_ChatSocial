@@ -67,7 +67,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           labelStyle: TextStyle(color: context.theme?.greyColor),
           prefixIcon: const Icon(
             Icons.language,
-            color: Coloors.greenDark,
+            color: Coloors.greyDark,
           ),
           hintText: 'Search country by code or name',
           enabledBorder: UnderlineInputBorder(
@@ -91,8 +91,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   void initState() {
-    countryNameController = TextEditingController(text: 'Ethiopia');
-    countryCodeController = TextEditingController(text: '251');
+    countryNameController = TextEditingController(text: 'Ecuador');
+    countryCodeController = TextEditingController(text: '593');
     phoneNumberController = TextEditingController();
     super.initState();
   }
@@ -132,16 +132,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                text: 'WhatsApp will need to verify your number. ',
+                text: 'Trivai deberá verificar su número.',
                 style: TextStyle(
-                  color: context.theme?.greyColor,
+                  color: Colors.black,
                   height: 1.5,
                 ),
                 children: [
                   TextSpan(
-                    text: "What's my number?",
+                    text: "¿Cuál es su número?",
                     style: TextStyle(
-                      color: context.theme?.blueColor,
+                        color: Color(0xFF15678A),
                     ),
                   ),
                 ],
@@ -180,7 +180,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 Expanded(
                   child: CustomTextField(
                     controller: phoneNumberController,
-                    hintText: 'phone number',
+                    hintText: 'teléfono',
                     textAlign: TextAlign.left,
                     keyboardType: TextInputType.number,
                   ),
@@ -190,7 +190,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           ),
           const SizedBox(height: 20),
           Text(
-            'Carrier charges may apply',
+            'Se pueden aplicar cargos',
             style: TextStyle(
               color: context.theme?.greyColor,
             ),
@@ -200,7 +200,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: CustomElevatedButton(
         onPressed: sendCodeToPhone,
-        text: 'NEXT',
+        text: 'Siguiente',
         buttonWidth: 90,
       ),
     );

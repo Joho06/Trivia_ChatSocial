@@ -33,9 +33,9 @@ class _welcomePageState extends State<welcomePage> {
             child: Column(
               children: [
                  const Text(
-                  'Bienvenida a Trivai',
+                  'Bienvenidos a Trivai',
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 24,
                     color: Color(0xFF53D9EB),
                     fontWeight: FontWeight.bold,
                   ),
