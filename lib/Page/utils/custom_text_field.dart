@@ -51,12 +51,12 @@ class CustomTextField extends StatelessWidget {
         hintStyle: TextStyle(color: context.theme?.greyColor),
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Coloors.greenDark,
+            color: Colors.black38,
           ),
         ),
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Coloors.greenDark,
+            color: Colors.black38,
             width: 2,
           ),
         ),

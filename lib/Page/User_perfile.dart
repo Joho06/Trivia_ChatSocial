@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:trivai_chat_social/Page/HomePage.dart';
 import 'package:trivai_chat_social/Page/utils/auth/controller.dart';
-import 'package:trivai_chat_social/Page/utils/coloors.dart';
 import 'package:trivai_chat_social/Page/utils/custom_elevated_button.dart';
 import 'package:trivai_chat_social/Page/utils/custom_text_field.dart';
 import 'package:trivai_chat_social/Page/utils/show_alert.dart';
@@ -33,12 +32,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
     if (username.isEmpty) {
       return showAlertDialog(
         context: context,
-        message: 'Please provide a username',
+        message: 'Porfavor ingresa tu nombre de perfil',
       );
     } else if (username.length < 3 || username.length > 20) {
       return showAlertDialog(
         context: context,
-        message: 'A username length should be between 3-20',
+        message: 'La longitud de un nombre de usuario debe estar entre 3 y 20',
       );
     }
 
@@ -77,22 +76,17 @@ class _UserInfoPageState extends State<UserInfoPage> {
             Container(
               width: double.infinity,
               height: 100,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/login.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
             ),
             SizedBox(height: 10), // Espacio entre la imagen y las opciones de selección
             Row(
               children: [
                 const SizedBox(width: 20),
-                const Text(
-                  'Profile photo',
+                Text(
+                  'Foto de perfil',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
+                    color: Colors.black, // Color del texto negro
                   ),
                 ),
                 const Spacer(),
@@ -115,7 +109,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 const SizedBox(width: 15),
                 imagePickerIcon(
                   onTap: () async {
-                    log('Hola');
+
                     Navigator.pop(context);
                     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
                     if (image == null) return;
@@ -135,6 +129,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
       },
     );
   }
+
 
 
   pickImageFromCamera() async {
@@ -160,7 +155,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
       children: [
         IconButton(
           onPressed: onTap,
-          icon: Icon(icon, color: Coloors.greenDark),
+          icon: Icon(icon,   color: Colors.black,),
           iconSize: 40,
           padding: EdgeInsets.zero,
         ),
@@ -168,7 +163,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
         Text(
           text,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+            color: Colors.black54,
           ),
         ),
       ],
@@ -196,62 +191,57 @@ class _UserInfoPageState extends State<UserInfoPage> {
         title: Text(
           'Información de perfil',
           style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+            color: Colors.black54,
           ),
         ),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            Text(
+            const Text(
               'Proporcione su nombre y una foto de perfil opcional.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Colors.black38,
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             GestureDetector(
               onTap: imagePickerTypeBottomSheet,
               child: Container(
-                padding: const EdgeInsets.all(26),
+                width: 150,
+                height: 150,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Colors.black38, // Color de fondo del círculo
                   border: Border.all(
                     color: imageCamera == null && imageGallery == null
                         ? Colors.transparent
-                        : Theme.of(context).colorScheme.primary,
+                        :  Colors.black,
                   ),
-                  image: imageCamera != null ||
-                      imageGallery != null ||
-                      widget.profileImageUrl != null
-                      ? DecorationImage(
-                    fit: BoxFit.cover,
-                    image: imageGallery != null
-                        ? MemoryImage(imageGallery!)
-                        : widget.profileImageUrl != null
-                        ? NetworkImage(widget.profileImageUrl!)
-                        : FileImage(imageCamera!) as ImageProvider,
-                  )
-                      : null,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 3, right: 3),
-                  child: Icon(
+                child: ClipOval(
+                  child: imageCamera != null || imageGallery != null || widget.profileImageUrl != null
+                      ? Image.network(
+                    widget.profileImageUrl ?? '',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 150,
+                  )
+                      : Icon(
                     Icons.add_a_photo_rounded,
                     size: 48,
-                    color: imageCamera == null &&
-                        imageGallery == null &&
-                        widget.profileImageUrl == null
-                        ? Theme.of(context).colorScheme.primary
-                        : Colors.transparent,
+                    color: imageCamera == null && imageGallery == null && widget.profileImageUrl == null
+                        ? Colors.black
+                        : Colors.black,
                   ),
                 ),
               ),
             ),
+
             const SizedBox(height: 40),
             Row(
               children: [
@@ -267,7 +257,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 const SizedBox(width: 10),
                 Icon(
                   Icons.emoji_emotions_outlined,
-                  color: Colors.green,
+                  color: Colors.black54,
                 ),
                 const SizedBox(width: 10),
               ],

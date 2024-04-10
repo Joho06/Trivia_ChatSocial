@@ -26,7 +26,7 @@ showAlertDialog({
             child: Text(
               btnText ?? "OK",
               style: TextStyle(
-                color: context.theme?.circleImageColor,
+                 color: Colors.black38,
               ),
             ),
           ),

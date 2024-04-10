@@ -18,7 +18,7 @@ showLoadingDialog({
             Row(
               children: [
                 const CircularProgressIndicator(
-                  color: Coloors.greenDark,
+                  color: Colors.black54,
                 ),
                 const SizedBox(width: 20),
                 Expanded(
