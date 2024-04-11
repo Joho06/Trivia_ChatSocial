@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:trivai_chat_social/Page/HomePage.dart';
 import 'package:trivai_chat_social/Page/utils/custom_text_field.dart';
+import 'package:date_field/date_field.dart';
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key, this.profileImageUrl}) : super(key: key);
@@ -17,13 +17,11 @@ class UserInfoPage extends StatefulWidget {
 }
 
 class _UserInfoPageState extends State<UserInfoPage> {
-  File? imageCamera;
-  Uint8List? imageGallery;
+  File? selectedImage; // Variable para manejar la imagen seleccionada
+  DateTime? selectedDate; // Variable para manejar la fecha seleccionada
 
   late TextEditingController usernameController;
   late TextEditingController usermailController;
-
-  get userController => null;
 
   @override
   void initState() {
@@ -57,13 +55,18 @@ class _UserInfoPageState extends State<UserInfoPage> {
     }
 
     try {
+      // Subir la imagen al almacenamiento de Firebase si está presente
+      String imageUrl = widget.profileImageUrl ?? '';
+      if (selectedImage != null) {
+        imageUrl = await uploadImageToStorage(selectedImage!);
+      }
+
       // Guardar los datos del usuario en Firestore
       await FirebaseFirestore.instance.collection('usuarios').doc().set({
         'username': username,
         'mail': mail,
-        'profileImage': imageCamera != null || imageGallery != null
-            ? await uploadImageToStorage()
-            : widget.profileImageUrl ?? '',
+        'profileImage': imageUrl,
+        'birthdate': selectedDate != null ? selectedDate!.toIso8601String() : null, // Guardar la fecha como un String en Firestore
       });
 
       showDialog(
@@ -76,10 +79,11 @@ class _UserInfoPageState extends State<UserInfoPage> {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Cerrar el diálogo
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()), // Reemplaza "NuevaPagina" con el nombre de tu clase de página
+                    MaterialPageRoute(builder: (context) => HomePage()),
                   );
+
                 },
                 child: Text('OK'),
               ),
@@ -109,10 +113,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
     }
   }
 
-  Future<String> uploadImageToStorage() async {
+  Future<String> uploadImageToStorage(File imageFile) async {
     try {
       final Reference storageReference = FirebaseStorage.instance.ref().child('user_profile_images').child('image_${DateTime.now().millisecondsSinceEpoch}.jpg');
-      await storageReference.putFile(imageCamera != null ? imageCamera! : File.fromRawPath(imageGallery!));
+      await storageReference.putFile(imageFile);
       final String downloadUrl = await storageReference.getDownloadURL();
       return downloadUrl;
     } catch (error) {
@@ -121,50 +125,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
     }
   }
 
-  imagePickerTypeBottomSheet() {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (context) {
-        return Container(
-          color: Colors.white,
-          child: Wrap(
-            children: [
-              ListTile(
-                leading: Icon(Icons.camera_alt_rounded),
-                title: Text('Cámara'),
-                onTap: () {
-                  pickImageFromCamera();
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.photo_camera_back_rounded),
-                title: Text('Galería'),
-                onTap: () async {
-                  final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                  if (image == null) return;
-                  setState(() {
-                    imageGallery = File(image.path).readAsBytesSync();
-                    imageCamera = null;
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   pickImageFromCamera() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
       setState(() {
-        imageCamera = File(image.path);
-        imageGallery = null;
+        selectedImage = File(image.path); // Actualiza la imagen seleccionada
       });
     } catch (e) {
       showAlertDialog(context: context, message: e.toString());
@@ -185,7 +151,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
             alignment: Alignment.center,
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: const Text(
-              'Proporcione su nombre y una foto de perfil opcional.',
+              'Proporcione su nombre, una foto de perfil opcional y su fecha de nacimiento.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black38,
@@ -203,7 +169,13 @@ class _UserInfoPageState extends State<UserInfoPage> {
           children: [
             const SizedBox(height: 20),
             GestureDetector(
-              onTap: imagePickerTypeBottomSheet,
+              onTap: () async {
+                final image = await ImagePicker().pickImage(source: ImageSource.camera);
+                if (image == null) return;
+                setState(() {
+                  selectedImage = File(image.path); // Actualiza la imagen seleccionada
+                });
+              },
               child: Container(
                 width: 150,
                 height: 150,
@@ -211,13 +183,13 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   shape: BoxShape.circle,
                   color: Colors.black38,
                   border: Border.all(
-                    color: imageCamera == null && imageGallery == null ? Colors.transparent : Colors.black38,
+                    color: selectedImage == null ? Colors.transparent : Colors.black38,
                   ),
                 ),
                 child: ClipOval(
-                  child: imageCamera != null || imageGallery != null || widget.profileImageUrl != null
-                      ? Image.memory(
-                    imageGallery ?? Uint8List(0),
+                  child: selectedImage != null || widget.profileImageUrl != null
+                      ? Image.file(
+                    selectedImage ?? File(''), // Muestra la imagen seleccionada
                     fit: BoxFit.cover,
                     width: 150,
                     height: 150,
@@ -248,48 +220,23 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 SizedBox(height: 20), // Espacio entre los campos de entrada
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: 'YYYY', // Placeholder para el año
-                        ),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        // Aquí puedes añadir validaciones específicas para el año si lo deseas
-                      ),
-                    ),
-                    SizedBox(width: 10), // Espacio entre los campos
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: 'MM', // Placeholder para el mes
-                        ),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        // Aquí puedes añadir validaciones específicas para el mes si lo deseas
-                      ),
-                    ),
-                    SizedBox(width: 10), // Espacio entre los campos
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: 'DD', // Placeholder para el día
-                        ),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        // Aquí puedes añadir validaciones específicas para el día si lo deseas
-                      ),
-                    ),
-                  ],
+                DateTimeFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Ingresa tu fecha de nacimiento',
+                  ),
+                  mode: DateTimeFieldPickerMode.date,
+                  firstDate: DateTime.now().add(const Duration(days: 10)),
+                  lastDate: DateTime.now().add(const Duration(days: 40)),
+                  initialPickerDateTime: DateTime.now().add(const Duration(days: 20)),
+                  onChanged: (DateTime? value) {
+                    setState(() {
+                      selectedDate = value; // Actualiza la fecha seleccionada
+                    });
+                  },
                 ),
-
               ],
             ),
-
             const SizedBox(height: 10),
-
           ],
         ),
       ),
@@ -305,24 +252,24 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
     );
   }
-}
 
-void showAlertDialog({required BuildContext context, required String message}) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Alerta'),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('OK'),
-          ),
-        ],
-      );
-    },
-  );
+  void showAlertDialog({required BuildContext context, required String message}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Alerta'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
