@@ -10,12 +10,14 @@ import 'package:trivai_chat_social/Page/LoginPage.dart';
 import 'package:trivai_chat_social/Page/welcomePage.dart';
 import 'package:trivai_chat_social/Rutas/routes.dart';
 import 'Screens/cameraScreen.dart';
+import 'package:intl/intl_standalone.dart' if (dart.library.html) 'package:intl/intl_browser.dart';
 import 'firebase_options.dart';
 
 List<CameraDescription> cameras = [];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await findSystemLocale();
   cameras = await availableCameras();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -51,6 +53,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate, // Agrega CupertinoLocalizations.delegate
         ],
         supportedLocales: [
           const Locale('en', 'US'), // Inglés
