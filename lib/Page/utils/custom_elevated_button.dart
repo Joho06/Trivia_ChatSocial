@@ -16,16 +16,20 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 42,
+      height: 52,
       width: buttonWidth ?? MediaQuery.of(context).size.width - 100,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white38, // Cambia el color del botón aquí
-        ),
-        child: Text(text,
-          style: TextStyle(
-            color: Colors.black, // Cambia el color del texto según lo deseado
+      child: Padding(
+        padding: EdgeInsets.only(top: 0),// Ajusta la cantidad de espacio superior según lo necesites
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white38, // Cambia el color del botón aquí
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.black, // Cambia el color del texto según lo deseado
+            ),
           ),
         ),
       ),

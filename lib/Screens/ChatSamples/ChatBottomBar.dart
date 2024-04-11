@@ -1,4 +1,9 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ChatBottomBar extends StatefulWidget {
   @override
@@ -6,6 +11,8 @@ class ChatBottomBar extends StatefulWidget {
 }
 
 class _ChatBottomBarState extends State<ChatBottomBar> {
+  File? imageCamera;
+  Uint8List? imageGallery;
   bool _isTyping = false;
   TextEditingController _controller = TextEditingController();
 
@@ -54,10 +61,15 @@ class _ChatBottomBarState extends State<ChatBottomBar> {
                     color: Colors.black,
                   ),
                   SizedBox(width: 15),
-                  Icon(
-                    Icons.camera_alt,
-                    color: Colors.black,
-                    size: 30,
+                  IconButton(
+                    icon: Icon(
+                      Icons.camera_alt,
+                      color: Colors.black87,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      imagePickerTypeBottomSheet();
+                    },
                   ),
                 ],
               ),
@@ -79,13 +91,100 @@ class _ChatBottomBarState extends State<ChatBottomBar> {
               ),
               child: Icon(
                 _isTyping ? Icons.send : Icons.mic,
-                size: 30,
+                size: 25,
                 color: Colors.white,
               ),
             ),
           )
         ],
       ),
+    );
+  }
+
+  pickImageFromCamera() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+      setState(() {
+        imageCamera = File(image.path);
+        imageGallery = null;
+      });
+    } catch (e) {
+      print('Error al tomar la foto: $e');
+      showAlertDialog(context: context, message: e.toString());
+    }
+  }
+
+  imagePickerTypeBottomSheet() {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return Container(
+          color: Colors.white,
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: Icon(Icons.camera_alt_rounded),
+                title: Text('Cámara'),
+                onTap: () {
+                  pickImageFromCamera();
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.photo_camera_back_rounded),
+                title: Text('Galería'),
+                onTap: () async {
+                  final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                  if (image == null) return;
+                  setState(() {
+                    imageGallery = File(image.path).readAsBytesSync();
+                    imageCamera = null;
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> uploadImageToStorage() async {
+    try {
+      final Reference storageReference = FirebaseStorage.instance.ref().child('user_profile_images').child('image_${DateTime.now().millisecondsSinceEpoch}.jpg');
+      if (imageCamera != null) {
+        await storageReference.putFile(imageCamera!);
+      } else if (imageGallery != null) {
+        await storageReference.putData(imageGallery!);
+      } else {
+        throw Exception('No se ha seleccionado ninguna imagen.');
+      }
+    } catch (error) {
+      print('Error al subir la imagen a Firebase Storage: $error');
+      throw Exception('Error al subir la imagen a Firebase Storage');
+    }
+  }
+
+  void showAlertDialog({BuildContext? context, String? message}) {
+    showDialog(
+      context: context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text(message ?? ''),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cerrar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

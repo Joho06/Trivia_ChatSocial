@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:trivai_chat_social/Page/HomePage.dart';
+import 'package:trivai_chat_social/Page/utils/custom_elevated_button.dart';
 import 'package:trivai_chat_social/Page/utils/custom_text_field.dart';
 
 class UserInfoPage extends StatefulWidget {
@@ -294,13 +295,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: SizedBox(
-        width: 100,
-        height: 40,
-        child: FloatingActionButton(
-          onPressed: saveUserDataToFirebase,
-          child: Text('Siguiente'),
-        ),
+      floatingActionButton: CustomElevatedButton(
+        onPressed: saveUserDataToFirebase,
+        text: 'Siguiente',
+        buttonWidth: 120,
       ),
 
     );

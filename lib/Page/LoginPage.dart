@@ -110,6 +110,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return Scaffold(
 
       appBar: AppBar(
+        toolbarHeight: 100,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         title: Text(
@@ -203,9 +204,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       floatingActionButton: CustomElevatedButton(
         onPressed: sendCodeToPhone,
         text: 'Siguiente',
-
         buttonWidth: 120,
-
       ),
     );
   }

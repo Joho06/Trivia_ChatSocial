@@ -48,7 +48,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     "Los mensajes estan cifrados de extremo a extremo. Nadie fuera de este chat, puede leerlos ni escucharlos",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 10,
                       color: Colors.black,
                     ),
                   ),

@@ -1,196 +1,124 @@
+import 'dart:typed_data';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
 
-List<CameraDescription>? cameras;
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
 
   @override
-  State<CameraScreen> createState() => _CameraScreenState();
+  _CameraScreenState createState() => _CameraScreenState();
 }
 
 class _CameraScreenState extends State<CameraScreen> {
-  late CameraController _cameraController;
-  late Future<void> cameraValue;
-  XFile? pictureFile;
+  File? imageCamera;
+  Uint8List? imageGallery;
 
-  @override
-  void initState() {
-    super.initState();
-    _cameraController = CameraController(cameras![0], ResolutionPreset.high);
-    cameraValue = _cameraController.initialize();
+  Future<String> uploadImageToStorage() async {
+    try {
+      final Reference storageReference = FirebaseStorage.instance
+          .ref()
+          .child('image_${DateTime.now().millisecondsSinceEpoch}.jpg');
+      await storageReference.putFile(
+          imageCamera != null ? imageCamera! : File.fromRawPath(imageGallery!));
+      final String downloadUrl = await storageReference.getDownloadURL();
+      return downloadUrl;
+    } catch (error) {
+      print('Error al subir la imagen a Firebase Storage: $error');
+      throw Exception('Error al subir la imagen a Firebase Storage');
+    }
+  }
+
+  Future<void> pickImageFromCamera() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+      setState(() {
+        imageCamera = File(image.path);
+        imageGallery = null;
+      });
+    } catch (e) {
+      showAlertDialog(context: context, message: e.toString());
+    }
+  }
+
+  void showAlertDialog({
+    required BuildContext context,
+    required String message,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Ok'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          FutureBuilder(
-            future: cameraValue,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return CameraPreview(_cameraController);
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
-          Positioned(
-            top: 15,
-            left: 0,
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.close,
-                color: Colors.white,
-                size: 40,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 20,
-            right: 0,
-            child: IconButton(
-              onPressed: () {
-                _toggleFlash();
-              },
-              icon: const Icon(
-                Icons.flash_off,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Colors.black,
-              width: MediaQuery.of(context).size.width,
-              height: 112, // Ajusta la altura según sea necesario
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      _switchCamera();
-                    },
-                    icon: const Icon(
-                      Icons.cached_sharp,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      _takePicture();
-                    },
-                    icon: const Icon(
-                      Icons.camera,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          if (pictureFile != null)
-            Positioned.fill(
-              child: Image.file(
-                File(pictureFile!.path),
-                fit: BoxFit.cover,
-              ),
-            ),
-        ],
+      appBar: AppBar(
+        title: Text('Chat'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Call the imagePickerTypeBottomSheet function here
+            imagePickerTypeBottomSheet(context);
+          },
+          child: Text('Select Image'),
+        ),
       ),
     );
   }
-  Widget _buildPicturePreview() {
-    if (pictureFile != null) {
-      return Stack(
-        children: [
-          Positioned.fill(
-            child: Transform.scale(
-              scale: _cameraController.description.lensDirection == CameraLensDirection.front ? -1.0 : 1.0,
-              alignment: Alignment.center,
-              child: Image.file(
-                File(pictureFile!.path),
-                fit: BoxFit.cover,
+
+  void imagePickerTypeBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return Container(
+          color: Colors.white,
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: Icon(Icons.camera_alt_rounded),
+                title: Text('Cámara'),
+                onTap: () {
+                  pickImageFromCamera();
+                  Navigator.pop(context);
+                },
               ),
-            ),
+              ListTile(
+                leading: Icon(Icons.photo_camera_back_rounded),
+                title: Text('Galería'),
+                onTap: () async {
+                  final image = await ImagePicker()
+                      .pickImage(source: ImageSource.gallery);
+                  if (image == null) return;
+                  setState(() {
+                    imageGallery =
+                        File(image.path).readAsBytesSync();
+                    imageCamera = null;
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
           ),
-          Positioned(
-            top: 20,
-            left: 20,
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    // Lógica para guardar la imagen
-                  },
-                  icon: const Icon(
-                    Icons.save,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    // Lógica para cerrar la vista previa
-                    setState(() {
-                      pictureFile = null;
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
-    } else {
-      return const SizedBox(); // Si no hay ninguna foto capturada, no muestra nada
-    }
-  }
-
-
-  void _toggleFlash() async {
-    bool isFlashOn = _cameraController.value.flashMode == FlashMode.torch;
-    await _cameraController.setFlashMode(
-      isFlashOn ? FlashMode.off : FlashMode.torch,
+        );
+      },
     );
-    setState(() {});
-  }
-
-  void _switchCamera() async {
-    await _cameraController.dispose();
-    CameraDescription currentCamera = _cameraController.description;
-    List<CameraDescription> cameras = await availableCameras();
-    int nextCameraIndex = (currentCamera.lensDirection.index + 1) % cameras.length;
-    _cameraController = CameraController(cameras[nextCameraIndex], ResolutionPreset.high);
-    await _cameraController.initialize();
-    setState(() {});
-  }
-
-  void _takePicture() async {
-    try {
-      XFile? picture = await _cameraController.takePicture();
-      setState(() {
-        pictureFile = picture;
-      });
-    } catch (e) {
-      print("Error al tomar la foto: $e");
-    }
   }
 }
