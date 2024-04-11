@@ -225,15 +225,16 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     labelText: 'Ingresa tu fecha de nacimiento',
                   ),
                   mode: DateTimeFieldPickerMode.date,
-                  firstDate: DateTime.now().add(const Duration(days: 10)),
-                  lastDate: DateTime.now().add(const Duration(days: 40)),
-                  initialPickerDateTime: DateTime.now().add(const Duration(days: 20)),
+                  firstDate: DateTime.now().subtract(const Duration(days: 365 * 100)), // Resta 100 años
+                  lastDate: DateTime.now(), // Hasta la fecha actual
+                  initialPickerDateTime: DateTime.now().subtract(const Duration(days: 365 * 20)), // Resta 20 años como fecha inicial
                   onChanged: (DateTime? value) {
                     setState(() {
                       selectedDate = value; // Actualiza la fecha seleccionada
                     });
                   },
                 ),
+
               ],
             ),
             const SizedBox(height: 10),
