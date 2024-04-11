@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class ComunidadScreen extends StatefulWidget {
@@ -181,7 +181,6 @@ class _ComunidadScreenState extends State<ComunidadScreen> {
   }
 
   __agregarComentario(int index) {
-    final DatabaseReference comentariosRef = FirebaseDatabase.instance.reference().child('comentarios');
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -242,15 +241,14 @@ class _ComunidadScreenState extends State<ComunidadScreen> {
   }
 
   Future<void> saveComentarioToFirebase(String comentario, String reaccion, int index) async {
-    final DatabaseReference comentariosRef = FirebaseDatabase.instance.reference().child('comentarios');
     try {
-      await FirebaseFirestore.instance.collection('coemntarios').doc().set({
+      await FirebaseFirestore.instance.collection('comentarios').doc().set({
         'comentario': comentario,
         'reaccion': reaccion,
       });
     } catch (error) {
-      print('Error al guardar el comentario en Firebase Database: $error');
-      throw Exception('Error al guardar el comentario en Firebase Database');
+      print('Error al guardar el comentario en Firestore: $error');
+      throw Exception('Error al guardar el comentario en Firestore');
     }
   }
 }

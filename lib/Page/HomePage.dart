@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:trivai_chat_social/Page/User_perfile.dart';
+import 'package:trivai_chat_social/Page/utils/show_alert.dart';
 
 import '../Screens/chatScreen.dart';
 import '../Screens/comunidadScreen.dart';
