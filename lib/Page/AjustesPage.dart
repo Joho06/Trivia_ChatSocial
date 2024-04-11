@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Screens/Ajustes/chatSetting.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class AjustesPage extends StatelessWidget {
   const AjustesPage({super.key});
 
