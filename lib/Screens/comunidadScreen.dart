@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 class ComunidadScreen extends StatefulWidget {
   const ComunidadScreen({Key? key}) : super(key: key);
 
@@ -108,50 +107,66 @@ class _ComunidadScreenState extends State<ComunidadScreen> {
   }
 
   Widget _buildComentarios(int index) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('comentarios')
-          .where('index', isEqualTo: index.toString())
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Container();
-        }
-        var comentarios = snapshot.data!.docs;
-        return Column(
-          children: comentarios.map<Widget>((comentario) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage(imagenesUsuario[index]),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          nombres[index],
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    return Column(
+      children: [
+        StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('comentarios')
+              .where('index', isEqualTo: index.toString())
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Container();
+            }
+            var comentarios = snapshot.data!.docs;
+            return Column(
+              children: comentarios.map<Widget>((comentario) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundImage: AssetImage(imagenesUsuario[index]),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              nombres[index],
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              comentario['comentario'],
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          comentario['comentario'],
-                          style: const TextStyle(fontSize: 14),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              }).toList(),
             );
-          }).toList(),
-        );
-      },
+          },
+        ),
+        SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                likes[index] ? 'Le gusta a ${nombres[index]}' : '',
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+              ),
+            ),
+          ],
+        ),
+        const Divider(),
+      ],
     );
   }
 
@@ -214,9 +229,14 @@ class _ComunidadScreenState extends State<ComunidadScreen> {
 
   Future<void> _guardarComentario(String comentario, int index) async {
     try {
+      // Crear un mapa para representar la reacción
+      String reaccion = likes[index] ? 'like' : 'nolike';
+
+      // Guardar el comentario en Firestore con la reacción
       await FirebaseFirestore.instance.collection('comentarios').add({
         'comentario': comentario,
-        'index': index.toString(), // Agregar el índice de la publicación para identificarla
+        'index': index.toString(),
+        'reaccion': reaccion,
       });
     } catch (error) {
       print('Error al guardar el comentario en Firestore: $error');
